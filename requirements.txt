@@ -1,0 +1,4 @@
+Dijkstar==2.6.0
+ipython==8.12.3
+numpy==1.24.4
+z3_solver==4.12.2.0
