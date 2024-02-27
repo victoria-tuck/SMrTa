@@ -1,0 +1,131 @@
+{
+  "tasks_stream": [
+    {
+      "arrival": 0,
+      "tasks": [
+        {
+          "start": 6,
+          "end": 0,
+          "deadline": 259
+        },
+        {
+          "start": 28,
+          "end": 4,
+          "deadline": 452
+        },
+        {
+          "start": 48,
+          "end": 45,
+          "deadline": 576
+        },
+        {
+          "start": 41,
+          "end": 49,
+          "deadline": 744
+        },
+        {
+          "start": 2,
+          "end": 55,
+          "deadline": 957
+        },
+        {
+          "start": 19,
+          "end": 42,
+          "deadline": 758
+        },
+        {
+          "start": 43,
+          "end": 24,
+          "deadline": 697
+        },
+        {
+          "start": 55,
+          "end": 49,
+          "deadline": 448
+        },
+        {
+          "start": 41,
+          "end": 14,
+          "deadline": 299
+        },
+        {
+          "start": 4,
+          "end": 53,
+          "deadline": 220
+        },
+        {
+          "start": 59,
+          "end": 46,
+          "deadline": 579
+        },
+        {
+          "start": 50,
+          "end": 32,
+          "deadline": 569
+        },
+        {
+          "start": 2,
+          "end": 15,
+          "deadline": 993
+        },
+        {
+          "start": 42,
+          "end": 61,
+          "deadline": 238
+        },
+        {
+          "start": 56,
+          "end": 43,
+          "deadline": 523
+        },
+        {
+          "start": 34,
+          "end": 30,
+          "deadline": 801
+        },
+        {
+          "start": 1,
+          "end": 47,
+          "deadline": 968
+        },
+        {
+          "start": 38,
+          "end": 43,
+          "deadline": 790
+        },
+        {
+          "start": 2,
+          "end": 25,
+          "deadline": 453
+        },
+        {
+          "start": 30,
+          "end": 21,
+          "deadline": 980
+        }
+      ]
+    }
+  ],
+  "agents": [
+    53,
+    23,
+    53,
+    6,
+    53,
+    41,
+    12,
+    9,
+    59,
+    60,
+    23,
+    57,
+    26,
+    59,
+    31,
+    0,
+    27,
+    29,
+    11,
+    63
+  ]
+}

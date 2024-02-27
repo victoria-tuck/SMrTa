@@ -1,0 +1,71 @@
+{
+  "tasks_stream": [
+    {
+      "arrival": 0,
+      "tasks": [
+        {
+          "start": 39,
+          "end": 1,
+          "deadline": 759
+        },
+        {
+          "start": 63,
+          "end": 30,
+          "deadline": 657
+        },
+        {
+          "start": 44,
+          "end": 38,
+          "deadline": 588
+        },
+        {
+          "start": 35,
+          "end": 25,
+          "deadline": 298
+        },
+        {
+          "start": 64,
+          "end": 31,
+          "deadline": 704
+        },
+        {
+          "start": 60,
+          "end": 5,
+          "deadline": 354
+        },
+        {
+          "start": 62,
+          "end": 32,
+          "deadline": 347
+        },
+        {
+          "start": 7,
+          "end": 0,
+          "deadline": 635
+        },
+        {
+          "start": 39,
+          "end": 33,
+          "deadline": 435
+        },
+        {
+          "start": 26,
+          "end": 12,
+          "deadline": 207
+        }
+      ]
+    }
+  ],
+  "agents": [
+    11,
+    32,
+    29,
+    24,
+    37,
+    41,
+    16,
+    2,
+    21,
+    24
+  ]
+}

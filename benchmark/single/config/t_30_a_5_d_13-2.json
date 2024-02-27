@@ -1,0 +1,166 @@
+{
+  "tasks_stream": [
+    {
+      "arrival": 0,
+      "tasks": [
+        {
+          "start": 48,
+          "end": 10,
+          "deadline": 903
+        },
+        {
+          "start": 63,
+          "end": 19,
+          "deadline": 998
+        },
+        {
+          "start": 25,
+          "end": 46,
+          "deadline": 269
+        },
+        {
+          "start": 24,
+          "end": 33,
+          "deadline": 870
+        },
+        {
+          "start": 53,
+          "end": 50,
+          "deadline": 746
+        },
+        {
+          "start": 2,
+          "end": 48,
+          "deadline": 355
+        },
+        {
+          "start": 63,
+          "end": 57,
+          "deadline": 541
+        },
+        {
+          "start": 40,
+          "end": 55,
+          "deadline": 399
+        },
+        {
+          "start": 39,
+          "end": 29,
+          "deadline": 656
+        },
+        {
+          "start": 63,
+          "end": 16,
+          "deadline": 448
+        },
+        {
+          "start": 23,
+          "end": 45,
+          "deadline": 748
+        },
+        {
+          "start": 5,
+          "end": 9,
+          "deadline": 323
+        },
+        {
+          "start": 13,
+          "end": 42,
+          "deadline": 877
+        },
+        {
+          "start": 64,
+          "end": 20,
+          "deadline": 806
+        },
+        {
+          "start": 0,
+          "end": 20,
+          "deadline": 787
+        },
+        {
+          "start": 47,
+          "end": 62,
+          "deadline": 972
+        },
+        {
+          "start": 51,
+          "end": 55,
+          "deadline": 369
+        },
+        {
+          "start": 40,
+          "end": 62,
+          "deadline": 785
+        },
+        {
+          "start": 62,
+          "end": 14,
+          "deadline": 581
+        },
+        {
+          "start": 28,
+          "end": 25,
+          "deadline": 770
+        },
+        {
+          "start": 20,
+          "end": 13,
+          "deadline": 948
+        },
+        {
+          "start": 10,
+          "end": 16,
+          "deadline": 254
+        },
+        {
+          "start": 30,
+          "end": 50,
+          "deadline": 377
+        },
+        {
+          "start": 14,
+          "end": 42,
+          "deadline": 939
+        },
+        {
+          "start": 29,
+          "end": 12,
+          "deadline": 799
+        },
+        {
+          "start": 35,
+          "end": 19,
+          "deadline": 886
+        },
+        {
+          "start": 12,
+          "end": 30,
+          "deadline": 731
+        },
+        {
+          "start": 41,
+          "end": 23,
+          "deadline": 515
+        },
+        {
+          "start": 50,
+          "end": 55,
+          "deadline": 758
+        },
+        {
+          "start": 44,
+          "end": 0,
+          "deadline": 411
+        }
+      ]
+    }
+  ],
+  "agents": [
+    40,
+    4,
+    9,
+    48,
+    22
+  ]
+}
