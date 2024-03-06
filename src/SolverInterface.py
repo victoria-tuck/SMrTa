@@ -16,6 +16,8 @@ class Result(Enum):
     unsat = 2
     unknown = 3
 
+tm = bwz.TermManager()
+
 class SolverInterface:
     def __init__(self, solver_name, theory):
         global solver
@@ -29,7 +31,7 @@ class SolverInterface:
         if is_bitwuzla():
             options = bwz.Options()
             options.set(bwz.Option.PRODUCE_MODELS, True)
-            self.s = bwz.Bitwuzla(options)
+            self.s = bwz.Bitwuzla(tm, options)
 
     def add(self, term):
         if type(term) is Bool:
@@ -143,7 +145,7 @@ class SolverInterface:
             del self.s
             options = bwz.Options()
             options.set(bwz.Option.PRODUCE_MODELS, True)
-            self.s = bwz.Bitwuzla(options)
+            self.s = bwz.Bitwuzla(tm, options)
         else: raise NotImplementedError
         self.n_scopes = 0
 
@@ -161,10 +163,10 @@ def get_bwz_term(that, size=None):
         return that.var
     if type(that) is int:
         assert check_enough_bits(that, size), f"{size} bits not enough to represent {that}"
-        return bwz.mk_bv_value(bwz.mk_bv_sort(size), that)
+        return tm.mk_bv_value(tm.mk_bv_sort(size), that)
     # if type(that) is bwz.Term: return that
-    if that == True: return bwz.mk_true()
-    if that == False: return bwz.mk_false()
+    if that == True: return tm.mk_true()
+    if that == False: return tm.mk_false()
     else: raise NotImplementedError
 
 class Bool:
@@ -175,7 +177,7 @@ class Bool:
         elif is_z3():
             self.var = z3.Bool(name)
         elif is_bitwuzla():
-            self.var = bwz.mk_const(bwz.mk_bool_sort(), name)
+            self.var = tm.mk_const(tm.mk_bool_sort(), name)
         else: raise NotImplementedError
 
     def __str__(self): return str(self.var)
@@ -282,7 +284,7 @@ class BitVec:
         elif is_z3():
             self.var = z3.BitVec(name, num_bits)
         elif is_bitwuzla():
-            self.var = bwz.mk_const(bwz.mk_bv_sort(num_bits), name)
+            self.var = tm.mk_const(tm.mk_bv_sort(num_bits), name)
         else: raise NotImplementedError
 
 
@@ -296,7 +298,7 @@ class BitVec:
         if is_z3():
             var = self.var + get_z3_term(that)
         elif is_bitwuzla():
-            var = bwz.mk_term(bwz.Kind.BV_ADD, 
+            var = tm.mk_term(bwz.Kind.BV_ADD, 
                                [self.var, get_bwz_term(that, self.size)])
         else: raise NotImplementedError
         return BitVec(var=var)
@@ -305,7 +307,7 @@ class BitVec:
         if is_z3():
             var = self.var - get_z3_term(that)
         elif is_bitwuzla():
-            var = bwz.mk_term(bwz.Kind.BV_SUB, 
+            var = tm.mk_term(bwz.Kind.BV_SUB, 
                                [self.var, get_bwz_term(that, self.size)])
         else: raise NotImplementedError
         return BitVec(var=var)
@@ -314,7 +316,7 @@ class BitVec:
         if is_z3():
             var = self.var & get_z3_term(that)
         elif is_bitwuzla():
-            var = bwz.mk_term(bwz.Kind.BV_AND, 
+            var = tm.mk_term(bwz.Kind.BV_AND, 
                                [self.var, get_bwz_term(that, self.size)])
         else: raise NotImplementedError
         return BitVec(var=var)
@@ -323,7 +325,7 @@ class BitVec:
         if is_z3():
             var = self.var | get_z3_term(that)
         elif is_bitwuzla():
-            var = bwz.mk_term(bwz.Kind.BV_OR, 
+            var = tm.mk_term(bwz.Kind.BV_OR, 
                                [self.var, get_bwz_term(that, self.size)])
         else: raise NotImplementedError
         return BitVec(var=var)
@@ -332,7 +334,7 @@ class BitVec:
         if is_z3():
             term = self.var == get_z3_term(that)
         elif is_bitwuzla():
-            term = bwz.mk_term(bwz.Kind.EQUAL,
+            term = tm.mk_term(bwz.Kind.EQUAL,
                                [self.var, get_bwz_term(that, self.size)])
         else: raise NotImplementedError
         return Bool(var=term)
@@ -341,7 +343,7 @@ class BitVec:
         if is_z3():
             term = self.var != get_z3_term(that)
         elif is_bitwuzla():
-            term = bwz.mk_term(bwz.Kind.NOT, [bwz.mk_term(bwz.Kind.EQUAL,
+            term = tm.mk_term(bwz.Kind.NOT, [tm.mk_term(bwz.Kind.EQUAL,
                                [self.var, get_bwz_term(that, self.size)])])
         else: raise NotImplementedError
         return Bool(var=term)
@@ -350,7 +352,7 @@ class BitVec:
         if is_z3():
             term = self.var >= get_z3_term(that)
         elif is_bitwuzla():
-            term = bwz.mk_term(bwz.Kind.BV_SGE,
+            term = tm.mk_term(bwz.Kind.BV_SGE,
                                [self.var, get_bwz_term(that, self.size)])
         else: raise NotImplementedError
         return Bool(var=term)
@@ -359,7 +361,7 @@ class BitVec:
         if is_z3():
             term = self.var <= get_z3_term(that)
         elif is_bitwuzla():
-            term = bwz.mk_term(bwz.Kind.BV_SLE,
+            term = tm.mk_term(bwz.Kind.BV_SLE,
                                [self.var, get_bwz_term(that, self.size)])
         else: raise NotImplementedError
         return Bool(var=term)
@@ -368,7 +370,7 @@ class BitVec:
         if is_z3():
             term = self.var > get_z3_term(that)
         elif is_bitwuzla():
-            term = bwz.mk_term(bwz.Kind.BV_SGT,
+            term = tm.mk_term(bwz.Kind.BV_SGT,
                                [self.var, get_bwz_term(that, self.size)])
         else: raise NotImplementedError
         return Bool(var=term)
@@ -377,7 +379,7 @@ class BitVec:
         if is_z3():
             term = self.var < get_z3_term(that)
         elif is_bitwuzla():
-            term = bwz.mk_term(bwz.Kind.BV_SLT,
+            term = tm.mk_term(bwz.Kind.BV_SLT,
                                [self.var, get_bwz_term(that, self.size)])
         else: raise NotImplementedError
         return Bool(var=term)
@@ -386,7 +388,7 @@ def BitVecVal(x, num_bits):
     if is_z3():
         var = z3.BitVecVal(x, num_bits)
     elif is_bitwuzla():
-        var = bwz.mk_bv_value(bwz.mk_bv_sort(num_bits), x)
+        var = tm.mk_bv_value(tm.mk_bv_sort(num_bits), x)
     else: raise NotImplementedError
     return BitVec(var=var)
 
@@ -396,7 +398,7 @@ class BitVecSort:
         if is_z3():
             self.sort = z3.BitVecSort(num_bits)
         if is_bitwuzla():
-            self.sort = bwz.mk_bv_sort(num_bits)
+            self.sort = tm.mk_bv_sort(num_bits)
 
 class Function:
     def __init__(self, name, *args):
@@ -406,8 +408,8 @@ class Function:
         if is_z3():
             self.var = z3.Function(name, *sorts)
         elif is_bitwuzla():
-            func_sort = bwz.mk_fun_sort(list(sorts[:-1]), sorts[-1])
-            self.var = bwz.mk_const(func_sort, name)
+            func_sort = tm.mk_fun_sort(list(sorts[:-1]), sorts[-1])
+            self.var = tm.mk_const(func_sort, name)
         else: raise NotImplementedError
         
     def __call__(self, *args):
@@ -417,7 +419,7 @@ class Function:
             var = self.var(*solver_args)
         elif is_bitwuzla():
             solver_args = [get_bwz_term(arg, sort.size) for arg, sort in zip(args, self.domain)]
-            var = bwz.mk_term(bwz.Kind.APPLY,
+            var = tm.mk_term(bwz.Kind.APPLY,
                                [self.var] + solver_args)
         else: raise NotImplementedError
         return BitVec(var=var)
@@ -429,14 +431,14 @@ def Not(t):
     if is_z3():
         term = z3.Not(get_z3_term(t))
     elif is_bitwuzla():
-        term = bwz.mk_term(bwz.Kind.NOT, [get_bwz_term(t)])
+        term = tm.mk_term(bwz.Kind.NOT, [get_bwz_term(t)])
     else: raise NotImplementedError
     return Bool(var=term)
 
 def And(*args):
     if len(args) == 0 or (len(args) == 1 and len(args[0]) == 0): # Empty
         if is_z3(): term = True
-        elif is_bitwuzla(): term = bwz.mk_true()
+        elif is_bitwuzla(): term = tm.mk_true()
         else: raise NotImplementedError
     else:
         # Passed in a list of terms
@@ -448,14 +450,14 @@ def And(*args):
             term = z3.And(args) if len(args) > 1 else args[0]
         elif is_bitwuzla():
             args = [get_bwz_term(arg) for arg in args]
-            term = bwz.mk_term(bwz.Kind.AND, args) if len(args) > 1 else args[0]
+            term = tm.mk_term(bwz.Kind.AND, args) if len(args) > 1 else args[0]
         else: raise NotImplementedError
     return Bool(var=term)
 
 def Or(*args):
     if len(args) == 0 or (len(args) == 1 and len(args[0]) == 0): # Empty
         if is_z3(): term = False
-        elif is_bitwuzla(): term = bwz.mk_false()
+        elif is_bitwuzla(): term = tm.mk_false()
         else: raise NotImplementedError
     else:
         # Passed in a list of terms
@@ -467,7 +469,7 @@ def Or(*args):
             term = z3.Or(args) if len(args) > 1 else args[0]
         elif is_bitwuzla():
             args = [get_bwz_term(arg) for arg in args]
-            term = bwz.mk_term(bwz.Kind.OR, args) if len(args) > 1 else args[0]
+            term = tm.mk_term(bwz.Kind.OR, args) if len(args) > 1 else args[0]
         else: raise NotImplementedError
     return Bool(var=term)
 
@@ -475,7 +477,7 @@ def Implies(t1, t2):
     if is_z3():
         term = z3.Implies(get_z3_term(t1), get_z3_term(t2))
     elif is_bitwuzla():
-        term = bwz.mk_term(bwz.Kind.IMPLIES, [get_bwz_term(t1), get_bwz_term(t2)])
+        term = tm.mk_term(bwz.Kind.IMPLIES, [get_bwz_term(t1), get_bwz_term(t2)])
     else: raise NotImplementedError
     return Bool(var=term)
 
@@ -483,7 +485,7 @@ def If(t1, t2, t3):
     if is_z3():
         term = z3.If(get_z3_term(t1), get_z3_term(t2), get_z3_term(t3))
     elif is_bitwuzla():
-        term = bwz.mk_term(bwz.Kind.ITE, 
+        term = tm.mk_term(bwz.Kind.ITE, 
                                       [get_bwz_term(t1), get_bwz_term(t2), get_bwz_term(t3)])
     else: raise NotImplementedError
     return BitVec(var=term)
