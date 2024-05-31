@@ -1,13 +1,57 @@
 import pickle
 import numpy as np
+import csv
+import sys
+from collections import defaultdict
+from functools import reduce
+from typing import Optional, Tuple, List
 
 from .create_randomized_inputs import *
 from dijkstar import Graph, find_path
 
 
-def load_weighted_graph(file_name='weighted_graph_p3.pkl'):
-    with open(file_name, 'rb') as f:
+def datafile_to_roomgraph(filename, savefile=None):
+# def datafile_to_roomgraph(filename: str, savefile: Optional[str] = None) -> Tuple[int, List[List]]:
+    """Convert a data file of travel times into a room graph
+    
+    :param filename: name of a file where the first column is starting room id, 
+    second column is ending room id, and further columns contain travel time information
+    :return list of list of data with maximum travel time per pair of rooms
+    """
+    room_dict = datafile_to_dict(filename)
+    room_count, room_graph = dictionary_to_matrix(room_dict)
+
+    if savefile is not None:
+        with open(savefile, 'wb') as file:
+            data = (room_count, room_graph)
+            pickle.dump(data, file)
+
+    return room_count, room_graph
+
+
+def load_weighted_graph(filename='weighted_graph_p3.pkl'):
+    with open(filename, 'rb') as f:
         return pickle.load(f)
+    
+
+def datafile_to_dict(filename):
+    """Convert a data file of travel times into a dictionary
+    
+    :param filename: name of a file where the first column is starting room id, 
+    second column is ending room id, and further columns contain travel time information
+    :return dictionary of data with maximum travel time per pair of rooms
+    """
+    with open(filename, mode='r') as file:
+        csv_reader = csv.reader(file)
+
+        def process_row(data_dict, row):
+            starting_room_id, ending_room_id, *times = row
+            max_travel_time = max([float(time) for time in times])
+            data_dict[starting_room_id][ending_room_id] = max_travel_time
+            return data_dict
+
+        data_dict = reduce(process_row, csv_reader, defaultdict(dict))
+    return data_dict
 
 
 def dictionary_to_matrix(room_dictionary, unique_room_ids=None, debug=False):
@@ -84,3 +128,5 @@ def dictionary_to_matrix(room_dictionary, unique_room_ids=None, debug=False):
 
     return room_count, room_graph
 
+# if __name__ == "__main__":
+#     datafile_to_roomgraph("travel_time_data_6rooms.csv", "weighted_graph_hospital.pkl")
