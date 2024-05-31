@@ -1,0 +1,7 @@
+README.md
+setup.py
+src/MRTASolver.py
+src/SMrTa.egg-info/PKG-INFO
+src/SMrTa.egg-info/SOURCES.txt
+src/SMrTa.egg-info/dependency_links.txt
+src/SMrTa.egg-info/top_level.txt

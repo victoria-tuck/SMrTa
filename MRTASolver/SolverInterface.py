@@ -4,7 +4,7 @@ from enum import Enum
 import z3
 import bitwuzla as bwz
 
-from utils import TimeLimitTerminator, twos_comp
+from .utils import TimeLimitTerminator, twos_comp
 
 solver = None
 solver_list = ['z3', 'bitwuzla']

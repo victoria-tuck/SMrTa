@@ -1,8 +1,8 @@
-from SolverInterface import *
-from run_realistic_setting import load_weighted_graph, dictionary_to_matrix
-from create_randomized_inputs import *
-from verify import verify, check_sol_consistency
-from parser import parser
+from .SolverInterface import *
+from .run_realistic_setting import load_weighted_graph, dictionary_to_matrix
+from .create_randomized_inputs import *
+from .verify import verify, check_sol_consistency
+from .parser import parser
 
 import time
 import statistics
@@ -142,7 +142,10 @@ class MRTASolver:
                     print(f"Time to check satisfiability : {times[-1]}s")
                     if sol is not None:
                         prev_sol = sol.copy()
-                    sol = self.extract_and_verify_model(solver, agents, tasks_stream[:i+1], capacity, room_graph, curr_max_time)
+                    # sol = self.extract_and_verify_model(solver, agents, tasks_stream[:i+1], capacity, room_graph, curr_max_time)
+                    sol = self.extract_model(solver)
+                    verify(sol, agents, tasks_stream[:i+1], capacity, room_graph, curr_max_time)
+                    self.debug_print("Model has been verified.")
                     if prev_sol is not None:
                         check_sol_consistency(curr_time, prev_sol, sol, self.free_action_points)
                 else:
@@ -170,8 +173,9 @@ class MRTASolver:
             f.write(self.s.to_smt2())
         # dump_config(self.agents, self.tasks_stream, self.default_deadline, basename)
 
-    def extract_and_verify_model(self, solver, agents, tasks_stream, capacity, room_graph, curr_max_deadline):
-        num_agents = len(agents)
+    # def extract_and_verify_model(self, solver, agents, tasks_stream, capacity, room_graph, curr_max_deadline):
+    def extract_model(self, solver):
+        num_agents = len(self.agents)
         sol = {'agt': [{'t': [], 'c': [], 'id': []} for i in range(num_agents)]}
         
         # Print the model for clarity
@@ -193,8 +197,8 @@ class MRTASolver:
         sol['t2a'] = [[solver.get_value(v) for v in agent_list] for agent_list in self.task_agents]
 
         # Verify model and save data
-        verify(sol, agents, tasks_stream, capacity, room_graph, curr_max_deadline)
-        self.debug_print("Model has been verified.")
+        # verify(sol, agents, tasks_stream, capacity, room_graph, curr_max_deadline)
+        # self.debug_print("Model has been verified.")
         return sol
 
     def create_vars(self, num_agts, num_aps, cap, num_total_tasks, max_time, num_rooms, aps_list):
