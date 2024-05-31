@@ -1,0 +1,23 @@
+{
+  "tasks_stream": [
+    {
+      "arrival": 0,
+      "tasks": [
+        {
+          "start": 1,
+          "end": 4,
+          "deadline": 300
+        },
+        {
+          "start": 2,
+          "end": 5,
+          "deadline": 300
+        }
+      ]
+    }
+  ],
+  "agents": [
+    0,
+    1
+  ]
+}
