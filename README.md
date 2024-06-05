@@ -4,12 +4,30 @@ This repository implements the approach from the NFM 2024 paper "SMT-Based Dynam
 
 ## Installation
 
+Python3.8-3.11 is required.
+
 To install the necessary requirements for this project, enter the following:
 ```
 $ pip3 install -r requirements.txt
 ```
 
-The [Bitwuzla Python API](https://bitwuzla.github.io/docs/install.html) is also required to use Bitwuzla as the underlying SMT solver. Check out the above link for installation instructions. 
+To add Bitwuzla as a submodule, run
+```
+git submodule update --init --recursive
+```
+
+The [Bitwuzla Python API](https://bitwuzla.github.io/docs/install.html) is also required to use Bitwuzla as the underlying SMT solver. Install using:
+
+```
+cd bitwuzla
+pip3 install meson
+./configure.py
+cd build && meson compile && ninja install
+cd ..
+pip3 install .
+```
+
+Check out the above link for further installation instructions. 
 
 ## Usage
 The implementation supports the following options:
