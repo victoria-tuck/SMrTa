@@ -9,7 +9,6 @@ import statistics
 import json
 import sys
 
-
 class MRTASolver:
     """
     A class to solve the Multi-Robot Task Allocation problem using the Z3 SMT solver.
@@ -68,6 +67,7 @@ class MRTASolver:
         self.theory = theory
         self.agents = agents
         self.tasks_stream = tasks_stream
+        self.solutions = []
         self.cap = capacity
         self.num_aps = num_aps
         self.free_action_points = free_action_points
@@ -148,6 +148,7 @@ class MRTASolver:
                     self.debug_print("Model has been verified.")
                     if prev_sol is not None:
                         check_sol_consistency(curr_time, prev_sol, sol, self.free_action_points)
+                    self.solutions.append((curr_time, sol))
                 else:
                     sol = None
                     self.debug_print('Unsatisfiable')

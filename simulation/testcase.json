@@ -6,12 +6,27 @@
         {
           "start": 1,
           "end": 4,
-          "deadline": 300
+          "deadline": 100
         },
         {
           "start": 2,
           "end": 5,
           "deadline": 300
+        }
+      ]
+    },
+    {
+      "arrival": 20,
+      "tasks": [
+        {
+          "start": 3,
+          "end": 0,
+          "deadline": 150
+        },
+        {
+          "start": 4,
+          "end": 5,
+          "deadline": 100
         }
       ]
     }
