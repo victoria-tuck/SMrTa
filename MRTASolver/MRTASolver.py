@@ -1,8 +1,8 @@
-from .SolverInterface import *
-from .run_realistic_setting import load_weighted_graph, dictionary_to_matrix
-from .create_randomized_inputs import *
-from .verify import verify, check_sol_consistency
-from .parser import parser
+from SolverInterface import *
+from run_realistic_setting import load_weighted_graph, dictionary_to_matrix
+from create_randomized_inputs import *
+from verify import verify, check_sol_consistency
+from parser import parser
 
 import time
 import statistics
