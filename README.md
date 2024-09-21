@@ -2,6 +2,10 @@
 
 This repository implements the approach from the NFM 2024 paper "SMT-Based Dynamic Multi-Robot Task Allocation". Please see below for instructions for installation and how to run the software.
 
+## Version
+
+This repo has been tested on Ubuntu 20.04 with Python version 3.10.12.
+
 ## Installation
 
 To install the necessary requirements for this project, enter the following:
