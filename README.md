@@ -21,7 +21,7 @@ The [Bitwuzla Python API](https://bitwuzla.github.io/docs/install.html) is also 
 The implementation supports the following options:
 
 ```bash
-$ python3 MRTASolver/MRTASolver.py --help
+$ python3 -m MRTASolver.MRTASolver --help
 usage: MRTASolver.py [-h] --file FILE [--solver {bitwuzla,z3,cvc5}] [--theory {QF_UFBV,QF_UFLIA}] [--capacity CAPACITY] [--timeout TIMEOUT] [--num_aps NUM_APS]
                      [--export EXPORT] [--incremental] [--verbose] [--fidelity FIDELITY] [--deadline DEADLINE] [--keep_aps]
 
@@ -56,7 +56,7 @@ Only the `--file` flag is required. The file describes the how tasks arrive and 
 An example of running a specific setting would be:
 
 ```bash
-python3 MRTASolver/MRTASolver.py -f benchmark/single/config/t_20_a_10_d_5-0.json
+python3 -m MRTASolver.MRTASolver -f benchmark/single/config/t_20_a_10_d_5-0.json
 ```
 
 To run SMT files directly, please download [z3](https://github.com/Z3Prover/z3) and [Bitwuzla](https://github.com/bitwuzla/bitwuzla) binaries from their respective repositories. SMT files are stored under the `benchmark` directory.
