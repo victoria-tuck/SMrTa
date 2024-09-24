@@ -4,7 +4,10 @@ This repository implements the approach from the NFM 2024 paper "SMT-Based Dynam
 
 ## Version
 
-This repo has been tested on Ubuntu 20.04 with Python version 3.10.12.
+This repo has been tested on
+
+- Ubuntu 20.04 with Python version 3.10.12.
+- Ubuntu 22.04 with Python version 3.10.12.
 
 ## Installation
 
